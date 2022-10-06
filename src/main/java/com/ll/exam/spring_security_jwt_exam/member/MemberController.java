@@ -33,7 +33,9 @@ public class MemberController {
         if(passwordEncoder.matches(loginDto.getPassword(), member.getPassword())==false){
             return Util.spring.responseEntityOf(RsData.of("F-3", "비밀번호가 일치하지 않습니다."));
         }
-
-        return Util.spring.responseEntityOf(RsData.of("S-1","로그인 성공Access Token을 발급합니다."),Util.spring.httpHeadersOf("Authentication","JWT_Access_Token"));
+        String accessToken = "JWT_Access_Token";
+        return Util.spring.responseEntityOf(
+                RsData.of("S-1","로그인 성공 AccessToken을 발급합니다.", Util.mapOf("Authentication",accessToken))
+                ,Util.spring.httpHeadersOf("Authentication",accessToken));
     }
 }
