@@ -6,8 +6,11 @@ import org.springframework.http.ResponseEntity;
 
 public class Util {
     public  class spring{
-        public static <T>ResponseEntity<T> responseEntityOf(HttpHeaders headers){
-            return new ResponseEntity<>(null,headers, HttpStatus.OK);
+        public static <T> ResponseEntity<RsData> responseEntityOf(RsData<T>rsData){
+            return responseEntityOf(rsData,null);
+        }
+        public static <T>ResponseEntity<RsData> responseEntityOf(RsData<T> rsData,HttpHeaders headers){
+            return new ResponseEntity<>(rsData,headers,rsData.isSuccess()?HttpStatus.OK:HttpStatus.BAD_REQUEST);
         }
     }
 }
