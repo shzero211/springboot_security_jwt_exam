@@ -1,6 +1,7 @@
 package com.ll.exam.spring_security_jwt_exam.member;
 
 
+import com.ll.exam.spring_security_jwt_exam.app.base.Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -32,8 +33,8 @@ public class MemberController {
             return new ResponseEntity<>(null,null,HttpStatus.BAD_REQUEST);
         }
         HttpHeaders headers=new HttpHeaders();
-        headers.set("Authentication","JWT키");
+        headers.set("Authentication","JWT_Access_Token");
        String body= "usernaeme : %s , password : %s".formatted(loginDto.getUsername(),loginDto.getPassword());
-       return new ResponseEntity<>(body,headers, HttpStatus.OK);
+        return Util.spring.responseEntityOf(headers);
     }
 }
