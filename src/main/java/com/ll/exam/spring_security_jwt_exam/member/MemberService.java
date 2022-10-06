@@ -3,6 +3,8 @@ package com.ll.exam.spring_security_jwt_exam.member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -15,5 +17,9 @@ public class MemberService {
                 .build();
     memberRepository.save(member);
     return member;
+    }
+
+    public Optional<Member> findByUsername(String username) {
+        return memberRepository.findByUsername(username);
     }
 }
