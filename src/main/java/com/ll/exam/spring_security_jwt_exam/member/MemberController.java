@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
     @PostMapping("/login")
     public ResponseEntity<String> join(@RequestBody LoginDto loginDto){
+        if(loginDto.isNotValid()){
+        return new ResponseEntity<>(null,null,HttpStatus.BAD_REQUEST);
+        }
         HttpHeaders headers=new HttpHeaders();
         headers.set("Authentication","JWT키");
        String body= "usernaeme : %s , password : %s".formatted(loginDto.getUsername(),loginDto.getPassword());
