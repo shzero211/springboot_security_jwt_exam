@@ -28,8 +28,8 @@ public class SecurityConfig {
                 .csrf().disable()
                 .httpBasic().disable()
                 .formLogin().disable()
-                .sessionManagement(sessionManagement->sessionManagement.sessionCreationPolicy(STATELESS)).addFilterBefore(
-                        jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
+                .sessionManagement(sessionManagement->sessionManagement.sessionCreationPolicy(STATELESS))
+                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }

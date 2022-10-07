@@ -21,7 +21,7 @@ public class MemberController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
     @PostMapping("/login")
-    public ResponseEntity<RsData> join(@RequestBody LoginDto loginDto){
+    public ResponseEntity<RsData> login(@RequestBody LoginDto loginDto){
 
         if(loginDto.isNotValid()){
             return Util.spring.responseEntityOf(RsData.of("F-1", "로그인 정보가 올바르지 않습니다."));
