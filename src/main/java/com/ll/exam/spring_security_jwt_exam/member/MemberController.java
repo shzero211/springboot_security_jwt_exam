@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,5 +42,12 @@ public class MemberController {
         return Util.spring.responseEntityOf(
                 RsData.of("S-1","로그인 성공 AccessToken을 발급합니다.", Util.mapOf("Authentication",accessToken))
                 ,Util.spring.httpHeadersOf("Authentication",accessToken));
+    }
+    @GetMapping("/me")
+    public ResponseEntity<RsData> me(@AuthenticationPrincipal MemberContext memberContext){
+            if(memberContext==null){
+                return Util.spring.responseEntityOf(RsData.failOf(null));
+            }
+        return Util.spring.responseEntityOf(RsData.successOf(memberContext));
     }
 }
