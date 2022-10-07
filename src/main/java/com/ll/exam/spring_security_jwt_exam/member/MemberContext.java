@@ -1,5 +1,6 @@
 package com.ll.exam.spring_security_jwt_exam.member;
 
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -9,6 +10,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
+@JsonIncludeProperties({"id", "createDate", "modifyDate", "username", "email", "authorities"})
 public class MemberContext extends User {
 private final long id;
 private final LocalDateTime createDate;

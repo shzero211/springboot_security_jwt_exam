@@ -17,6 +17,7 @@ import java.nio.charset.StandardCharsets;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -128,5 +129,15 @@ class AuthTests {
         resultActions=mvc.perform(get("/member/me").header("Authorization","Bearer "+accessToken)).andDo(print());
 
         resultActions.andExpect(status().is2xxSuccessful());
+        resultActions.andExpect(jsonPath("$.resultCode").value("S-1"))
+                .andExpect(jsonPath("$.msg").value("성공"))
+                .andExpect(jsonPath("$.data.id").value("1"))
+                .andExpect(jsonPath("$.data.createDate").isNotEmpty())
+                .andExpect(jsonPath("$.data.modifyDate").isNotEmpty())
+                .andExpect(jsonPath("$.data.email").value("user1@test.com"))
+                .andExpect(jsonPath("$.data.authorities").isNotEmpty())
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.fail").value(false));
+
     }
 }

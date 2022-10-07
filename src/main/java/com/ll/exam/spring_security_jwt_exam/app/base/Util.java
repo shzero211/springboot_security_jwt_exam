@@ -2,6 +2,7 @@ package com.ll.exam.spring_security_jwt_exam.app.base;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.ll.exam.spring_security_jwt_exam.AppConfig;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ public class Util {
     public static class json{
         public static Object toStr(Map<String,Object> map){
             try {
-                return getObjectMapper().writeValueAsString(map);
+                return getObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(map);
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
                return null;
@@ -25,7 +26,7 @@ public class Util {
         }
         public static Map<String, Object> toMap(String jsonStr) {
             try {
-                return getObjectMapper().readValue(jsonStr, LinkedHashMap.class);
+                return getObjectMapper().registerModule(new JavaTimeModule()).readValue(jsonStr, LinkedHashMap.class);
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
                 return null;
